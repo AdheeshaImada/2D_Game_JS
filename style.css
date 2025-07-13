@@ -1,0 +1,31 @@
+.d{
+    width: 100%;
+    height: 100vh;
+    background-image: url("background.png");
+    background-size: cover;
+    background-repeat: repeat-x;
+    overflow-x: hidden;
+    position: absolute;
+}
+.b{
+    margin: 0px;
+}
+.body{
+    width: 290px;
+    margin-top: 357px;
+    margin-left: 60px;
+    position: absolute;
+}
+.score{
+    color: blueviolet;
+    font-size: 45px;
+    margin-top: 0px;
+    margin-left: 1130px;
+    font-weight: bold;
+    position: absolute;
+}
+.f {
+    width: 110px;
+    margin-top: 424px;
+    position: absolute;
+}
