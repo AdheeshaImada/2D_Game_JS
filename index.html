@@ -5,7 +5,7 @@
         <link rel="stylesheet" href="style.css">
     </head>
 
-    <body class="b">
+    <body class="b" onkeyup="k(event);">
         <div class="d" id="d">
             <p class="score" id="score">0</p>
             <img src="Run (1).png" class="boy" id="boy"/>
@@ -14,12 +14,12 @@
             <div>Game Over</div>
             <div>Your Score: </div>
             <div id="endscore">0</div>
-            <button class="btn">Try Again</button>
+            <button class="btn" onclick="re();">Try Again</button>
         </div>
         <div class="start" id="start">
             <div>Fire Jump</div>
-            <button class="btn1" id="btn1">Start</button>
-            <button class="btn2" id="btn2">Menu</button>
+            <button class="btn1" id="btn1" onclick="l();">Start</button>
+            <button class="btn2" id="btn2" onclick="n();">Menu</button>
         </div>
         <div class="ind" id="ind">
             <div>Ok</div>
