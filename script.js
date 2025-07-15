@@ -25,8 +25,8 @@ var end_sound = new Audio("end.mp3");
 
 function move_bg(){
     var bg = document.getElementById("d");
-    bx = bx -20;
-    bg.style.backgroundPositionX = bx+"px";
+    background_x = background_x -30;
+    bg.style.backgroundPositionX = background_x+"px";
 }
 
 
@@ -34,6 +34,7 @@ function move_bg(){
 
 function run(){
     run_tracker = run_tracker +1;
+    jump_speed = 0;
     if(run_tracker == 9){
         run_tracker = 1;
     }
@@ -42,7 +43,6 @@ function run(){
 }
 
 function jump(){
-    jump_speed = 0;
     jump_tracker = jump_tracker +1;
     if(jump_tracker == 13){
         jump_tracker = 1;
@@ -59,7 +59,8 @@ function jump(){
         jump_position = jump_position + 45;
     }
     var jump_img = boy;
-    jump_img.src = "Jump (" + jump_img + ").png";
+    //alert(run_tracker);
+    jump_img.src = "Jump (" + jump_tracker + ").png";
     jump_img.style.marginTop = jump_position + "px";
 }
 
@@ -108,16 +109,16 @@ function flames(){
             flame_position = flame_position + 350;
         }
         flame.id = "a" + fl;
-        document.getElementById("d").appendChild(fla);
+        document.getElementById("d").appendChild(flame);
     }
 }
 
 function move_flame(){
-    for(fl = 0; fl < 30; fl++){
+    for(var fl = 0; fl < 30; fl++){
         var flame = getComputedStyle(document.getElementById("a"+fl));
         var flame_p = parseInt(flame.marginLeft) - 30;
-        document.getElementById("a"+fl).style.marginLeft = fm + "px";
-        if(flame_p >= 140 & fm <= 240){
+        document.getElementById("a"+fl).style.marginLeft = flame_p + "px";
+        if(flame_p >= 140 & flame_p <= 240){
             if(jump_position >= 240){
                 clearInterval(run_speed);
                 run_speed = -1;
@@ -141,7 +142,7 @@ function k(event){
         if(run_speed == 0){
             run_speed = setInterval(run,100);
             score_speed = setInterval(update_score, 100);
-            flame_speed = setInterval(flames, 100);
+            flame_speed = setInterval(move_flame, 100);
             background_speed = setInterval(move_bg, 100);
        }
     }
@@ -149,7 +150,7 @@ function k(event){
        if(jump_speed == 0){
             clearInterval(run_speed);
             if(flame_speed == 0){
-                flame_speed = setInterval(flames, 100);
+                flame_speed = setInterval(move_flame, 100);
             }
             jump_speed = setInterval(jump, 100);
             if(score_speed == 0){
