@@ -6,6 +6,13 @@ var dead_tracker = 0;
 var current_score = 0;
 var flame_position = 800;
 
+var run_speed = 0;
+var score_speed = 0;
+var flame_speed = 0;
+var background_speed = 0;
+var jump_speed = 0;
+var dead_speed = 0;
+
 var boy = document.getElementById("boy");
 
 var start_sound = new Audio("run.mp3");
@@ -35,9 +42,15 @@ function run(){
 }
 
 function jump(){
+    jump_speed = 0;
     jump_tracker = jump_tracker +1;
     if(jump_tracker == 13){
         jump_tracker = 1;
+        clearInterval(jump_speed);
+        run_speed = setInterval(run, 100);
+        if(background_speed == 0){
+            background_speed = setInterval(move_bg, 100);
+        }
     }
     if(jump_tracker <= 6){
         jump_position = jump_position - 45;
@@ -105,7 +118,16 @@ function move_flame(){
         var flame_p = parseInt(flame.marginLeft) - 30;
         document.getElementById("a"+fl).style.marginLeft = fm + "px";
         if(flame_p >= 140 & fm <= 240){
-            //pass
+            if(jump_position >= 240){
+                clearInterval(run_speed);
+                run_speed = -1;
+                clearInterval(jump_speed);
+                jump_speed = -1;
+                clearInterval(score_speed);
+                clearInterval(background_speed);
+                clearInterval(flame_speed);
+                dead_speed = setInterval(dead, 100);
+            }
         }
     }
 }
@@ -116,8 +138,51 @@ function move_flame(){
 function k(event){
     if(event.which == 13){
         flames();
+        if(run_speed == 0){
+            run_speed = setInterval(run,100);
+            score_speed = setInterval(update_score, 100);
+            flame_speed = setInterval(flames, 100);
+            background_speed = setInterval(move_bg, 100);
+       }
     }
     if(event.which == 32){
-       
+       if(jump_speed == 0){
+            clearInterval(run_speed);
+            if(flame_speed == 0){
+                flame_speed = setInterval(flames, 100);
+            }
+            jump_speed = setInterval(jump, 100);
+            if(score_speed == 0){
+                score_speed = setInterval(update_score, 100);
+            }
+            if(background_speed == 0){
+                background_speed = setInterval(move_bg, 100);
+            }
+            flames();
+       }
     }
+    if(event.which == 65){
+        clearInterval(run_speed);
+        run_speed = 0;
+        clearInterval(jump_speed);
+        jump_speed = 0;
+        clearInterval(score_speed);
+        score_speed = 0;
+        clearInterval(background_speed);
+        background_speed = 0;
+        clearInterval(flame_speed);
+        flame_speed = 0;
+    }
+}
+
+//general options
+
+function re(){
+    location.reload();
+}
+function n(){
+    location.reload();
+}
+function l(){
+    document.getElementById("start").style.visibility = "hidden";
 }
